@@ -1,5 +1,6 @@
 package com.kwgdev.ecommerce.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,5 +28,6 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country")
+    @JsonIgnore // Jackson annotation will ignore all the states/provinces and only display the countries
     private List<State> states;
 }

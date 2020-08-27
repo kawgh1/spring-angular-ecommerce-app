@@ -1,7 +1,9 @@
 package com.kwgdev.ecommerce.Config;
 
+import com.kwgdev.ecommerce.Entity.Country;
 import com.kwgdev.ecommerce.Entity.Product;
 import com.kwgdev.ecommerce.Entity.ProductCategory;
+import com.kwgdev.ecommerce.Entity.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -30,6 +32,9 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 
+        // Make all our JPA entities READ ONLY
+        // Refactor duplicate code
+
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
 
         // disable HTTP methods for Product: PUT, POST and DELETE
@@ -41,6 +46,18 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // disable HTTP methods for Product: PUT, POST and DELETE
         config.getExposureConfiguration()
                 .forDomainType(ProductCategory.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+
+        // disable HTTP methods for Country: PUT, POST and DELETE
+        config.getExposureConfiguration()
+                .forDomainType(Country.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+
+        // disable HTTP methods for State: PUT, POST and DELETE
+        config.getExposureConfiguration()
+                .forDomainType(State.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 

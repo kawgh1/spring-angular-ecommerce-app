@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 //@CrossOrigin("http://localhost:4200")
 
 
-@CrossOrigin("https://springboot-angular-ecommerce.herokuapp.com/")
+//@CrossOrigin("https://springboot-angular-ecommerce.herokuapp.com/")
 @RepositoryRestResource(collectionResourceRel = "countries", path = "countries")
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 }

@@ -13,7 +13,7 @@ import java.util.List;
  */
 // @CrossOrigin("http://localhost:4200")
 
-//@CrossOrigin("https://springboot-angular-ecommerce.herokuapp.com/")
+@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com/")
 @RepositoryRestResource
 public interface StateRepository extends JpaRepository<State, Integer> {
 

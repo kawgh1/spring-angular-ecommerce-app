@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 //@CrossOrigin("http://localhost:4200") // allows our Spring REST to accept web browser calls from this http origin (angular frontend)
 
-@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com/products")
+@CrossOrigin(origins = "https://spring-angular-ecommerce-front.herokuapp.com/")
+@RequestMapping(value = "/products")
 public interface ProductRepository extends JpaRepository <Product, Long> {
 
     Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);

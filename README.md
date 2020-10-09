@@ -15,3 +15,9 @@ This project is based on a course by Chad Darby at https://www.udemy.com/course/
 For the backend I did the heroku deployment including MySQL database set up.
 
 The course and deployment were a lot of fun. I look forward to creating more Angular/React + SpringBoot applications.
+
+#### Notes
+
+To solve the CORS problem I used the solution found here by user abosancic
+
+https://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working

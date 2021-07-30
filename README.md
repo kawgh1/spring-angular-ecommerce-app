@@ -21,3 +21,13 @@ The course and deployment were a lot of fun. I look forward to creating more Ang
 To solve the CORS problem I used the solution found here by user abosancic
 
 https://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working
+
+
+#### Development Process for Saving Customer Orders
+1. Run database script / create tables and rules - see resources/sqlscripts/create-order-tables.sql
+2. Create JPA entities
+3. Create DTOs
+4. Create repository
+5. Create service
+6. Create Controller
+7. POSTMAN test

@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 // without @CrossOrigin, the front-end will fail with a CORS error
 
-//@CrossOrigin("http://localhost:4200") // allows our Spring REST to accept web browser calls from this http origin (angular frontend)
+@CrossOrigin("http://localhost:4200") // allows our Spring REST to accept web browser calls from this http origin (angular frontend)
 
-@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com/")
+//@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com/")
 public interface ProductRepository extends JpaRepository <Product, Long> {
 
     Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);

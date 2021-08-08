@@ -3,34 +3,135 @@
 All of the page sections are Angular components that are populated with data (Product, Product Category, State, Country) from a MySQL database through Spring Data REST JPA calls. 
 
 
-To view the live site hosted on Heroku please visit https://spring-angular-ecommerce-front.herokuapp.com/products
+To view the **live site** hosted on Heroku please click [here](https://spring-angular-ecommerce-front.herokuapp.com/products)
 
-To view the front end code please visit https://github.com/kawgh1/spring-angular-ecommerce-frontend
+To view the front end code please click [here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)
 
-To view the API please visit https://springboot-angular-ecommerce.herokuapp.com/api/
+To view the API please click [here](https://springboot-angular-ecommerce.herokuapp.com/api/)
 
 
-This project is based on a course by Chad Darby at https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/
+This project is based on a course by [Chad Darby](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/)
 
-For the backend I did the heroku deployment including MySQL database set up.
+For the backend I did the heroku deployment including MySQL database set up. I also fixed a CORS issue but have since updated that fix using the correct method according to Spring documentation
 
 The course and deployment were a lot of fun. I look forward to creating more Angular/React + SpringBoot applications.
 
 #### Notes
 
-To solve the CORS problem I used the solution found here by user abosancic
+- ##### Deprecated 
+    - To solve the CORS problem I used the solution found here by user abosancic
+    - https://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working
 
-https://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working
+- ##### Update 8/21/2021
+    - Updated the CORS configuration the Spring way - see Backend Configuration below
+    - **Much Cleaner, More Secure**
+    
+#### Development Process for Backend Configuration
+1. Fix deprecated method for Spring Data REST
+
+    File: MyDataRestConfig.java
+    
+        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, 
+                                                         CorsRegistry cors) {
+        
+            ...
+       }
+       
+2. Configure CORS mapping for Spring Data REST
+
+    File: MyDataRestConfig.java
+        
+            public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, 
+                                                             CorsRegistry cors) {
+            
+                ...
+                
+                // configure CORS mapping
+                cors.addMapping("/api/**".allowedOrigins("http:localhost:4200");
+           }
+           
+    File: application.properties
+    
+        ...
+        spring.data.rest.base-path=/api
+
+3. Configure CORS mapping for @RestController
+    - @RestController configuration is separate from Spring Data REST configuration
+    
+4. Disable HTTP PATCH method
+    - Previously we configured the Spring Data REST APIs for read-only
+        - Disabled HTTP GET, POST and DELETE
+        - Still need to disable HTTP PATCH as users could still PATCH data to that endpoint
+5. Modify Spring Data REST Detection Strategy
+    - **By Default**, Spring Data REST will expose REST APIs for **all** Spring Data Repositories
+    - This is generally convenient ... but we may not want to publicly expose all of our APIs!!
+        - For example, we have a **Customer Repository**
+            - **BUT** we don't want to expose that repository as a publicly accessible REST API
+            - We only want to use it internally behind the server ... like for checking if a new customer already exists in our database
+    - REST endpoint **/api/customers/...** is currently exposed - we need to fix that
 
 
 #### Development Process for Saving Customer Orders
 1. Run database script / create tables and rules - see resources/sqlscripts/create-order-tables.sql
 2. Create JPA entities
+    - **Customer, Order, OrderItem, Address**
 3. Create DTOs
+    - **Purchase, PurchaseResponse**
 4. Create repository
+    - **CustomerRepository**
 5. Create service
+    - CheckoutService
+        - **CheckoutServiceImpl**
 6. Create Controller
+    - @RestController
+    - @RequestMapping("/api/checkout")
+    - **CheckoutController**
 7. POSTMAN test
+    - Send a JSON Purchase object (like what will be created on the Angular front end) to the /api/checkout/purchase route
+    
+    Ex)
+        
+        {
+           "customer":{
+              "firstName":"John",
+              "lastName":"Doe",
+              "email":"john.doe@luv2code.com"
+           },
+           "shippingAddress":{
+              "street":"afasa",
+              "city":"afasa",
+              "state":"Alberta",
+              "country":"Canada",
+              "zipCode":"afasa"
+           },
+           "billingAddress":{
+              "street":"fsfsf",
+              "city":"sfdsf",
+              "state":"Acre",
+              "country":"Brazil",
+              "zipCode":"19111"
+           },
+           "order":{
+              "totalPrice":36.98,
+              "totalQuantity":2
+           },
+           "orderItems":[
+              {
+                 "imageUrl":"assets/images/products/coffeemugs/coffeemug-luv2code-1000.png",
+                 "quantity":1,
+                 "unitPrice":18.99,
+                 "productId":26
+              },
+              {
+                 "imageUrl":"assets/images/products/mousepads/mousepad-luv2code-1000.png",
+                 "quantity":1,
+                 "unitPrice":17.99,
+                 "productId":51
+              }
+           ]
+        }
+        
+    - Check SQL database to ensure all the data is correctly populated in each of the related tables (Customer, Order, etc.)
 
 #### Security Login/Logout
 - Resources

@@ -3,11 +3,11 @@
 All of the page sections are Angular components that are populated with data (Product, Product Category, State, Country) from a MySQL database through Spring Data REST JPA calls. 
 
 
-- To view the **live site** hosted on Heroku please click [here](https://spring-angular-ecommerce-front.herokuapp.com/products)
+- To view the **live site** hosted on Heroku please click **[here](https://spring-angular-ecommerce-front.herokuapp.com/products)**
 
-- To view the front end code please click [here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)
+- To view the front end code please click **[here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)**
 
-- To view the API please click [here](https://springboot-angular-ecommerce.herokuapp.com/api/)
+- To view the API please click **[here](https://springboot-angular-ecommerce.herokuapp.com/api/)**
 
 
 - This project is based on a course by [Chad Darby](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/)
@@ -29,7 +29,7 @@ All of the page sections are Angular components that are populated with data (Pr
     
 # [Table of Contents](#table-of-contents)
 1. [Backend Configuration](#backend-configuration)
-2.
+2. [Saving Customer Orders](#saving-customer-orders)
 3. [Security Login-Logout](#security-login-logout)
     
 #### [Backend Configuration](#backend-configuration)

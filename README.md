@@ -31,7 +31,8 @@ All of the page sections are Angular components that are populated with data (Pr
 # [Table of Contents](#table-of-contents)
 1. [Backend Configuration](#backend-configuration)
 2. [Saving Customer Orders](#saving-customer-orders)
-3. [Security Login-Logout](#security-login-logout)
+3. [Order History](#order-history)
+4. [Security Login-Logout](#security-login-logout)
     
 #### [Backend Configuration](#backend-configuration)
 - **Development Process**
@@ -162,6 +163,36 @@ All of the page sections are Angular components that are populated with data (Pr
         
     - Check SQL database to ensure all the data is correctly populated in each of the related tables (Customer, Order, etc.)
     
+[Top](#table-of-contents)
+
+#### [Order History](#order-history)
+- **Development Process**
+
+1. Create OrderRepository REST API
+    - Expose endpoint to search for orders by the customer's email address
+        - HTTP Method ------------------- endpoint
+        - ___ **GET** ___ --------------- **"/api/orders/search/findByCustomerEmail?email=john.doe@gmail.com"**
+    - Spring Data REST and Spring Data JPA supports "query methods"
+        - Spring will construct a query based on method naming conventions
+        
+        Ex)
+            File: OrderRepository.java
+            
+            @RepositoryRestResource
+            public interface OrderRepository extends JpaRepository<Order, Long> {
+               
+                Page<Order> findByCustomerEmail(@Param("email") String email, Pageable pageable);
+                
+            }
+        
+        - So behind the scenes, with this code, Spring will execute the following SQL query with the method call
+            - SELECT * FROM orders LEFT OUTER JOIN customer
+            - ON orders.customer_id = customer.id WHERE customer.email = "email"
+            
+2. Update configs to make OrderRepository REST API read only
+    - disable HTTP methods
+    - read only is still public
+            
 [Top](#table-of-contents)
 
 

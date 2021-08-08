@@ -24,6 +24,7 @@ All of the page sections are Angular components that are populated with data (Pr
 
 - ##### Update 8/21/2021
     - Updated the CORS configuration the Spring way - see Backend Configuration below
+    - Requires Spring 2.4.0+
     - **Much Cleaner, More Secure**
     
     
@@ -35,7 +36,7 @@ All of the page sections are Angular components that are populated with data (Pr
 #### [Backend Configuration](#backend-configuration)
 - **Development Process**
 
-1. Fix deprecated method for Spring Data REST
+1. Fix deprecated method for Spring Data REST - requires Spring 2.4.0+
 
     File: MyDataRestConfig.java
     

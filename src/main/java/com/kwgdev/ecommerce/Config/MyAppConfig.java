@@ -9,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * created by kw on 8/8/2021 @ 11:43 AM
  */
+// this config class basically adds CORS mapping for all controllers and routes by using the @Configuration annotation at component scan time
+
 @Configuration
 public class MyAppConfig implements WebMvcConfigurer {
 

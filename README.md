@@ -3,18 +3,18 @@
 All of the page sections are Angular components that are populated with data (Product, Product Category, State, Country) from a MySQL database through Spring Data REST JPA calls. 
 
 
-To view the **live site** hosted on Heroku please click [here](https://spring-angular-ecommerce-front.herokuapp.com/products)
+- To view the **live site** hosted on Heroku please click [here](https://spring-angular-ecommerce-front.herokuapp.com/products)
 
-To view the front end code please click [here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)
+- To view the front end code please click [here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)
 
-To view the API please click [here](https://springboot-angular-ecommerce.herokuapp.com/api/)
+- To view the API please click [here](https://springboot-angular-ecommerce.herokuapp.com/api/)
 
 
-This project is based on a course by [Chad Darby](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/)
+- This project is based on a course by [Chad Darby](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/)
 
-For the backend I did the heroku deployment including MySQL database set up. I also fixed a CORS issue but have since updated that fix using the correct method according to Spring documentation
+- For the backend I did the heroku deployment including MySQL database set up. I also fixed a CORS issue but have since updated that fix using the correct method according to Spring documentation
 
-The course and deployment were a lot of fun. I look forward to creating more Angular/React + SpringBoot applications.
+- The course and deployment were a lot of fun. I look forward to creating more Angular/React + SpringBoot applications.
 
 #### Notes
 
@@ -26,7 +26,15 @@ The course and deployment were a lot of fun. I look forward to creating more Ang
     - Updated the CORS configuration the Spring way - see Backend Configuration below
     - **Much Cleaner, More Secure**
     
-#### Development Process for Backend Configuration
+    
+# [Table of Contents](#table-of-contents)
+1. [Backend Configuration](#backend-configuration)
+2.
+3. [Security Login-Logout](#security-login-logout)
+    
+#### [Backend Configuration](#backend-configuration)
+- **Development Process**
+
 1. Fix deprecated method for Spring Data REST
 
     File: MyDataRestConfig.java
@@ -69,9 +77,29 @@ The course and deployment were a lot of fun. I look forward to creating more Ang
             - **BUT** we don't want to expose that repository as a publicly accessible REST API
             - We only want to use it internally behind the server ... like for checking if a new customer already exists in our database
     - REST endpoint **/api/customers/...** is currently exposed - we need to fix that
+        - Will use the **ANNOTATED** Spring Data REST Detection Strategy
+            - ***ANNOTATED*** - Only exposes Spring Data repositories **explicitly** annotaed with **@RepositoryRestResource**
+            
+            File: application.properties
+            
+                ...
+                spring.data.rest.detection-strategy=ANNOTED
+                ...
+                
+            File: StateRepository.java
+            
+                @RepositoryRestResource
+                public interface StateRepository extends JpaRepository<State, Integer> {
+                
+                    ...
+                }
+
+[Top](#table-of-contents)
 
 
-#### Development Process for Saving Customer Orders
+#### [Saving Customer Orders](#saving-customer-orders)
+- **Development Process**
+
 1. Run database script / create tables and rules - see resources/sqlscripts/create-order-tables.sql
 2. Create JPA entities
     - **Customer, Order, OrderItem, Address**
@@ -132,8 +160,11 @@ The course and deployment were a lot of fun. I look forward to creating more Ang
         }
         
     - Check SQL database to ensure all the data is correctly populated in each of the related tables (Customer, Order, etc.)
+    
+[Top](#table-of-contents)
 
-#### Security Login/Logout
+
+#### [Security Login-Logout](#security-login-logout)
 - Resources
     - OAuth 2 - Authorization - www.oauth.net
         - OAuth 2 is an authorization framework that enables applications — such as Facebook, GitHub, and DigitalOcean — to obtain 
@@ -188,3 +219,5 @@ The course and deployment were a lot of fun. I look forward to creating more Ang
     - Okta provides SDKs, for Angular, Java, etc.
         - SDK is  a high level of abstraction ... helps to accelerate the development process
         - Includes login / sign-in widgets ... can customize look and feel with CSS, etc.
+        
+[Top](#table-of-contents)

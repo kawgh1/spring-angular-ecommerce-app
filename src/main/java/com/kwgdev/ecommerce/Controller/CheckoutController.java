@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 // @CrossOrigin("http://localhost:4200") // - configured in MyDataRestConfig under cors.addMapping(...).allowedOrigins("...")
-@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com/")
+@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com")
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {

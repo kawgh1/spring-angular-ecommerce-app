@@ -5,7 +5,7 @@ All of the page sections are Angular components that are populated with data (Pr
 
 - To view the **live site** hosted on Heroku please click **[here](https://spring-angular-ecommerce-front.herokuapp.com/products)**
 
-- To view the front end code please click **[here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)**
+- To view the **Angular front end** code please click **[here](https://github.com/kawgh1/spring-angular-ecommerce-frontend)**
 
 - To view the API please click **[here](https://springboot-angular-ecommerce.herokuapp.com/api/)**
 
@@ -32,7 +32,8 @@ All of the page sections are Angular components that are populated with data (Pr
 1. [Backend Configuration](#backend-configuration)
 2. [Saving Customer Orders](#saving-customer-orders)
 3. [Order History](#order-history)
-4. [Security Login-Logout](#security-login-logout)
+4. [Secure Order History](#secure-order-history)
+5. [Security Login-Logout](#security-login-logout)
     
 #### [Backend Configuration](#backend-configuration)
 - **Development Process**
@@ -193,6 +194,43 @@ All of the page sections are Angular components that are populated with data (Pr
     - disable HTTP methods
     - read only is still public
             
+[Top](#table-of-contents)
+
+#### [Secure Order History](#secure-order-history)
+- #### Development Process
+    - Currently, "/api/orders" is wide open - it should only be accessible to logged in users and only for their own personal orders
+    - ___ **GET** ___ --------------- **"/api/orders/search/findByCustomerEmail?email=john.doe@gmail.com"**
+1. Add Okta Spring Boot Starter to Maven pom.xml
+    
+    File: pom.xml
+        
+        ...
+        <dependency>
+            <groupId>com.okta.spring</groupId>
+            <artifactId>okta-spring-boot-starter</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        ...
+        
+2. Create an App at the Okta Developer site
+3. In Spring Boot app, set application properties
+
+    File: application.properties
+    
+        ...
+        okta.oauth2.client-id={yourClientId}
+        okta.oauth2.client-secret={yourClientSecret}
+        okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+        ...
+        
+    - Resource Server
+        - The "Resource Server" is the app that is hosting our protected resources
+            - the Spring Boot app in this case
+        - The "Resource Server" manages security using access tokens (JWT)
+        - The access tokens are validated with the "Authorization Server" (Okta)
+        
+4. Protect endpoints in Spring Security configuration class
+
 [Top](#table-of-contents)
 
 

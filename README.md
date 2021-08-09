@@ -228,8 +228,45 @@ All of the page sections are Angular components that are populated with data (Pr
             - the Spring Boot app in this case
         - The "Resource Server" manages security using access tokens (JWT)
         - The access tokens are validated with the "Authorization Server" (Okta)
-        
+
+![OAuth2 Diagram](https://github.com/kawgh1/spring-angular-ecommerce-app/blob/master/src/main/resources/oauth2-diagram.png)
+
+- Client (Angular app) sends the access token as an HTTP request header
+    - Authorization: Bearer <token>
+
 4. Protect endpoints in Spring Security configuration class
+
+    File: SecurityConfiguration.java
+    
+        ...
+        @Configuration
+        public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+        
+            @Override
+            protected void configure(HttpSecurity http) throws Exception {
+            
+                // protect endpoint /api/orders
+                http.authorizeRequests()
+                    .antMatchers("/api/orders/**") // protect the endpoint... only accessible to authenticated users
+                    .authenticated()
+                    .and()
+                    .oauth2ResourceServer() // Configures OAuth2 Resource Server support
+                    .jwt(); // enables JWT-encoded bearer token support
+                    
+                // add CORS filter
+                http.cors();
+            }
+        
+        }
+        
+5. EXTRA NOTE - 
+    -Once we implemented Okta Authorization and the Angular HTTP Interceptors, the POST /purchase began to fail giving a 403 error
+        - Fails because we are sending checkout request qith HTTP POST
+            - By default CSRF is enabled and CSRF performs checks on POST using COOKIES
+        - Since we are not using cookies for session tracking, CSRF says request is unauthorized 403
+        - **We can resolve this by disabled CSRF**
+            - This technique is commonly used for Single-Page Apps (SPA) and REST APIs
+            - See the Controller/CheckoutController and Config/SecurityConfiguration files for more info
 
 [Top](#table-of-contents)
 

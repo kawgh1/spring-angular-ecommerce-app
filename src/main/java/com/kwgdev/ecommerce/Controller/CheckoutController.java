@@ -20,6 +20,12 @@ public class CheckoutController {
         this.checkoutService = checkoutService;
     }
 
+    // Once we implemented Okta Authorization and the Angular HTTP Interceptors, the POST /purchase began to fail giving a 403 error
+    // Fails because we are sending checkout request qith HTTP POST
+    // By default CSRF is enabled and CSRF performs checks on POST using COOKIES
+    // Since we are not using cookies for session tracking, CSRF says request is unauthorized 403
+    // We can resolve this by disabled CSRF
+    // This technique is commonly used for Single-Page Apps (SPA) and REST APIs
     @PostMapping("/purchase")
     public PurchaseResponse placeOrder(@RequestBody Purchase purchase) { // JSON object of purchase comes through RequestBody
 

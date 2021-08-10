@@ -16,7 +16,7 @@ public class CheckoutController {
 
     private CheckoutService checkoutService;
 
-    private CheckoutController(CheckoutService checkoutService) {
+    public CheckoutController(CheckoutService checkoutService) {
         this.checkoutService = checkoutService;
     }
 

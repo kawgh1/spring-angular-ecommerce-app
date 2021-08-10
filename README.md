@@ -1,3 +1,6 @@
+### 8/9/2021 There is some backend issue with Spring and the Web Security Configuration
+- I am getting a 404 error when making a purchase, it's acting like the api/checkout/purchase endpoint isn't there when its clearly defined in the CheckoutController
+
 # A basic SpringBoot + Angular RESTful E-Commerce web app hopsted on Heroku 
 
 All of the page sections are Angular components that are populated with data (Product, Product Category, State, Country) from a MySQL database through Spring Data REST JPA calls. 

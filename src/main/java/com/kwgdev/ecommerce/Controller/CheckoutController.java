@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * created by kw on 7/29/2021 @ 6:36 AM
  */
 
-//@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com") // - configured in MyDataRestConfig under cors.addMapping(...).allowedOrigins("...")
+@CrossOrigin("https://spring-angular-ecommerce-front.herokuapp.com") // - configured in MyDataRestConfig under cors.addMapping(...).allowedOrigins("...")
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {
@@ -26,7 +26,6 @@ public class CheckoutController {
     // Since we are not using cookies for session tracking, CSRF says request is unauthorized 403
     // We can resolve this by disabled CSRF
     // This technique is commonly used for Single-Page Apps (SPA) and REST APIs
-
     @PostMapping("/purchase")
     public PurchaseResponse placeOrder(@RequestBody Purchase purchase) { // JSON object of purchase comes through RequestBody
 

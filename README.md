@@ -1,53 +1,56 @@
 ### 8/9/2021 There is some backend issue with Spring and the Web Security Configuration
 - I am getting a 404 error when making a purchase, it's acting like the api/checkout/purchase endpoint isn't there when its clearly defined in the CheckoutController
 - Could be CORS or CSRF related but nothing seems to work
+- Could be Okta related, I've checked Trusted Origin could be a missing backslash "/"
 
 ### This is the error I'm getting in browser console
 #### General:
-Request URL: https://springboot-angular-ecommerce.herokuapp.com/api/checkout/purchase
-Request Method: POST
-Status Code: 404 
-Referrer Policy: strict-origin-when-cross-origin
+- Request URL: https://springboot-angular-ecommerce.herokuapp.com/api/checkout/purchase
+- Request Method: POST
+- Status Code: 404 
+- Referrer Policy: strict-origin-when-cross-origin
 
 #### Response Headers:
-Access-Control-Allow-Credentials: true
-Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With, remember-me
-Access-Control-Allow-Methods: GET, OPTIONS
-Access-Control-Allow-Origin: https://spring-angular-ecommerce-front.herokuapp.com
-Access-Control-Max-Age: 3600
-Connection: keep-alive
-Content-Type: application/json
-Date: Tue, 10 Aug 2021 12:58:19 GMT
-Server: Cowboy
-Transfer-Encoding: chunked
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Via: 1.1 vegur
+- Access-Control-Allow-Credentials: true
+- Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With, remember-me
+- Access-Control-Allow-Methods: GET, OPTIONS
+- Access-Control-Allow-Origin: https://spring-angular-ecommerce-front.herokuapp.com
+- Access-Control-Max-Age: 3600
+- Connection: keep-alive
+- Content-Type: application/json
+- Date: Tue, 10 Aug 2021 12:58:19 GMT
+- Server: Cowboy
+- Transfer-Encoding: chunked
+- Vary: Origin
+- Vary: Access-Control-Request-Method
+- Vary: Access-Control-Request-Headers
+- Via: 1.1 vegur
 
 #### Request Headers:
-Accept: application/json, text/plain, */*
-Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.9
-Connection: keep-alive
-Content-Length: 604
-Content-Type: application/json
-Host: springboot-angular-ecommerce.herokuapp.com
-Origin: https://spring-angular-ecommerce-front.herokuapp.com
-Referer: https://spring-angular-ecommerce-front.herokuapp.com/
-sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
-sec-ch-ua-mobile: ?0
-Sec-Fetch-Dest: empty
-Sec-Fetch-Mode: cors
-Sec-Fetch-Site: cross-site
+- Accept: application/json, text/plain, */*
+- Accept-Encoding: gzip, deflate, br
+- Accept-Language: en-US,en;q=0.9
+- Connection: keep-alive
+- Content-Length: 604
+- Content-Type: application/json
+- Host: springboot-angular-ecommerce.herokuapp.com
+- Origin: https://spring-angular-ecommerce-front.herokuapp.com
+- Referer: https://spring-angular-ecommerce-front.herokuapp.com/
+- sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+- sec-ch-ua-mobile: ?0
+- Sec-Fetch-Dest: empty
+- Sec-Fetch-Mode: cors
+- Sec-Fetch-Site: cross-site
 
 #### Request Payload:  (JSON)
-{customer: {firstName: "asdf", lastName: "asdf", email: "asdf@asdf.com"},…}
-billingAddress: {street: "asdf", city: "asdf", state: "Andhra Pradesh", zipCode: "asdf", country: "India"}
-customer: {firstName: "asdf", lastName: "asdf", email: "asdf@asdf.com"}
-order: {totalPrice: 37.98, totalQuantity: 2}
-orderItems: [{imageUrl: "assets/images/products/coffeemugs/coffeemug-luv2code-1000.png", quantity: 1,…},…]
-shippingAddress: {street: "asdf", city: "asdf", state: "Andhra Pradesh", zipCode: "asdf", country: "India"}
+- {customer: {firstName: "asdf", lastName: "asdf", email: "asdf@asdf.com"},…}
+- billingAddress: {street: "asdf", city: "asdf", state: "Andhra Pradesh", zipCode: "asdf", country: "India"}
+- customer: {firstName: "asdf", lastName: "asdf", email: "asdf@asdf.com"}
+- order: {totalPrice: 37.98, totalQuantity: 2}
+- orderItems: [{imageUrl: "assets/images/products/coffeemugs/coffeemug-luv2code-1000.png", quantity: 1,…},…]
+- shippingAddress: {street: "asdf", city: "asdf", state: "Andhra Pradesh", zipCode: "asdf", country: "India"}
+
+
 
 
 # A basic SpringBoot + Angular RESTful E-Commerce web app hopsted on Heroku 

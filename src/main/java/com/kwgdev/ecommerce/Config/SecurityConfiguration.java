@@ -14,6 +14,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        // add CORS filter
+        http.cors();
+
+        // disable CSRF since we are not using Cookies for session tracking
+        http.csrf().disable();
+
         // protect endpoint /api/orders
         http.authorizeRequests()
                 .antMatchers("/api/orders/**") // protect the endpoint... only accessible to authenticated users
@@ -22,13 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .oauth2ResourceServer() // Configures OAuth2 Resource Server support
                 .jwt(); // enables JWT-encoded bearer token support
 
-        // add CORS filter
-        http.cors();
+
 
         // force a non-empty response body for (Unauthorized access) 401's to make the response more friendly
         Okta.configureResourceServer401ResponseBody(http);
 
-        // disable CSRF since we are not using Cookies for session tracking
-        http.csrf().disable();
+
     }
 }

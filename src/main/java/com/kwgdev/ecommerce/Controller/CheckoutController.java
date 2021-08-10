@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 // @CrossOrigin("http://localhost:4200") // - configured in MyDataRestConfig under cors.addMapping(...).allowedOrigins("...")
 @RestController
-@RequestMapping("/api/checkout")
+@RequestMapping("/checkout")
 public class CheckoutController {
 
     private CheckoutService checkoutService;
